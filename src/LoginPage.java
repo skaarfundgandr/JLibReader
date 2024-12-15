@@ -127,10 +127,14 @@ public class LoginPage {
     } // LoginPage
 
     public static void main(String[] args) {
-        try {
-            new LoginPage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new LoginPage();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

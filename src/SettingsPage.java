@@ -10,16 +10,8 @@ import java.io.File;
 
 public class SettingsPage {
     private static String currentDirectory = System.getProperty("user.dir");
-    private static File configFile = new File("settings.cfg");
 
     public static void start() {
-        if (!configFile.exists()) {
-            try {
-                configFile.createNewFile();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         // Main frame
         JFrame frame = new JFrame("Settings - Change Directory");
         frame.setSize(600, 200);

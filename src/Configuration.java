@@ -1,5 +1,7 @@
+import java.io.BufferedReader;
 import java.io.File;
-import java.nio.file.Path;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class Configuration {
     private File configFile;
@@ -15,11 +17,39 @@ public class Configuration {
         }
     }
 
-    public void setBookDir() {
-
+    public void setBookDir(String path) {
+        try (BufferedReader bf = new BufferedReader(new FileReader(configFile))) {
+            FileWriter fw = new FileWriter(configFile);
+            String current;
+            String out = "";
+            while ((current = bf.readLine()) != null) {
+                if (current.contains("Books: ")) {
+                    out += "Books: " + path;
+                } else {
+                    out += current;
+                }
+            }
+            if (!out.contains("Books: ")) {
+                out += "Books: " + path;
+            }
+            fw.write(out);
+            fw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getBooksdir() {
-
+        try (BufferedReader bf = new BufferedReader(new FileReader(configFile))) {
+            String currentLine;
+            while ((currentLine = bf.readLine()) != null) {
+                if (currentLine.contains("Books: ")) {
+                    return currentLine.substring(currentLine.indexOf("Books: ")).trim();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
