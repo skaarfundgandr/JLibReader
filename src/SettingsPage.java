@@ -13,6 +13,11 @@ public class SettingsPage {
 
     public static void start() {
         Configuration conf = new Configuration();
+        String booksDirectory = conf.getBooksdir();
+        if (booksDirectory != null) {
+            currentDirectory = booksDirectory;
+        }
+        
         // Main frame
         JFrame frame = new JFrame("Settings - Change Directory");
         frame.setSize(600, 200);
