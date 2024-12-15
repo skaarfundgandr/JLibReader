@@ -104,6 +104,7 @@ public class SelectionMenu {
                     Image scaledCoverPage = coverImage.getScaledInstance(180, 280, Image.SCALE_DEFAULT);
                     ImageIcon coverIcon = new ImageIcon(scaledCoverPage);
                     JButton sampleCover = new JButton(coverIcon);
+                    sampleCover.addActionListener(new BookListener(book));
                     sampleCover.setBounds(coverX, coverY, 180, 280);
                     
                     if ((coverX + 295) >= screenWidth) {
