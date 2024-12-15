@@ -44,7 +44,7 @@ public class LoginPage {
     private JFrame loginFrame;
 
     /* Change if needed or add filepath tracking method for portability */ 
-    private BufferedImage image = ImageIO.read(new File("C:\\Users\\ivyda\\Documents\\Codes\\JLibReaderSwing\\src\\main\\resources\\img\\login-bg.jpg")); 
+    private BufferedImage image = ImageIO.read(new File("resources/img/login-bg.jpg")); 
 
     LoginPage() throws IOException {
         // Create login frame 
@@ -131,10 +131,14 @@ public class LoginPage {
     } // LoginPage
 
     public static void main(String[] args) {
-        try {
-            new LoginPage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new LoginPage();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
