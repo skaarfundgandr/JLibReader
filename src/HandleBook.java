@@ -72,4 +72,8 @@ public class HandleBook {
 
         return titlesAndCovers;
     }
+
+    public ArrayList<Book> getBooks() {
+        return bookList;
+    }
 }
