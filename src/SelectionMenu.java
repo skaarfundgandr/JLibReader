@@ -80,20 +80,6 @@ public class SelectionMenu {
         });
         menuPanel.add(settingsButton);
 
-        // Book sample
-        HandleBook hb = new HandleBook();
-        ArrayList<Image> bookCovers = hb.getCoverImages();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(15, 15, 15, 15);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        for (Image cover : bookCovers) {
-            Image scaledCoverPage = cover.getScaledInstance(210, 320, Image.SCALE_DEFAULT);
-            ImageIcon coverIcon = new ImageIcon(scaledCoverPage);
-            JButton sampleCover = new JButton(coverIcon);
-            mainPanel.add(sampleCover, gbc);
-        }
-
         // Add components in a specific order
         mainFrame.add(mainPanel);
         mainPanel.add(menuPanel);
@@ -101,6 +87,30 @@ public class SelectionMenu {
 
         mainPanel.setComponentZOrder(menuButton, 0);
         mainPanel.setComponentZOrder(menuPanel, 1);
+
+        // Book sample
+        HandleBook hb = new HandleBook();
+        int coverX = 110;
+        int coverY = 60;
+        if (hb != null) {
+            ArrayList<Image> bookCovers = hb.getCoverImages();
+            for (Image cover : bookCovers) {
+
+                Image scaledCoverPage = cover.getScaledInstance(180, 280, Image.SCALE_DEFAULT);
+                ImageIcon coverIcon = new ImageIcon(scaledCoverPage);
+                JButton sampleCover = new JButton(coverIcon);
+                sampleCover.setBounds(coverX, coverY, 180, 280);
+                
+                if ((coverX + 295) >= screenWidth) {
+                    coverY += 325;
+                    coverX = 110;
+                } else {
+                    coverX += 295;
+                }
+                mainPanel.add(sampleCover);
+                mainPanel.setComponentZOrder(sampleCover, 2);
+            }
+        }
 
         // Menu Bar slide transition
         Timer slideIn = new Timer(3, null);
@@ -136,8 +146,15 @@ public class SelectionMenu {
             public void actionPerformed(ActionEvent e) {
                 if (isMenuVisible) {
                     slideOut.start();
+                    for (Component c : mainPanel.getComponents()) {
+                        c.setEnabled(true);
+                    }
                 } else {
                     slideIn.start(); 
+                    for (Component c : mainPanel.getComponents()) {
+                        c.setEnabled(false);
+                    }
+                    menuButton.setEnabled(true);
                 }
                 isMenuVisible = !isMenuVisible;
             }
