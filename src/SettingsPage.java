@@ -1,6 +1,6 @@
 /* Note: No designs yet; please send back code when functionality is added 
  * for final design retouching.
- * 
+ *
  * Note 2: Will send setup page within tomorrow.
  */
 import javax.swing.*;
