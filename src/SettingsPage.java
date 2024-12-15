@@ -12,6 +12,7 @@ public class SettingsPage {
     private static String currentDirectory = System.getProperty("user.dir");
 
     public static void start() {
+        Configuration conf = new Configuration();
         // Main frame
         JFrame frame = new JFrame("Settings - Change Directory");
         frame.setSize(600, 200);
@@ -19,12 +20,12 @@ public class SettingsPage {
 
         // Directory Label
         JLabel directoryLabel = new JLabel("Current Directory:");
-        directoryLabel.setBounds(20, 30, 120, 30); 
+        directoryLabel.setBounds(20, 30, 120, 30);
         frame.add(directoryLabel);
 
-        // Current Directory 
+        // Current Directory
         JTextField directoryField = new JTextField();
-        directoryField.setBounds(150, 30, 250, 30); 
+        directoryField.setBounds(150, 30, 250, 30);
         directoryField.setEditable(false);
         directoryField.setText(currentDirectory);
         frame.add(directoryField);
@@ -56,6 +57,7 @@ public class SettingsPage {
                 String selectedDir = directoryField.getText();
                 if (!selectedDir.isEmpty() && new File(selectedDir).exists()) {
                     currentDirectory = selectedDir;
+                    conf.setBookDir(selectedDir);
                     JOptionPane.showMessageDialog(frame, "Directory saved: " + selectedDir);
                 } else {
                     JOptionPane.showMessageDialog(frame, "Invalid directory selected!", "Error", JOptionPane.ERROR_MESSAGE);

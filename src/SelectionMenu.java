@@ -5,9 +5,6 @@
  * Note 2: No component yet for displaying books. Send code back with epub/pdf data grabber methods
  * in order to properly display books.
  */
-
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -38,7 +35,7 @@ public class SelectionMenu {
         menuPanel.setBackground(new Color(68, 68, 68, 255));
         menuPanel.setBounds(-350, 0, 350, screenHeight);
         menuPanel.setLayout(null);
-        
+
         /* Menu panel components */ 
         // App name label
         JLabel menuLabel = new JLabel("JLibReader");

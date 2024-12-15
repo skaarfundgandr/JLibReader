@@ -5,10 +5,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.Border;
 
-public class CustomComponents {
-    // Absolute retardation
-}
-
 class RoundedPasswordField extends JPasswordField {
     private int cornerRadius;
 
@@ -94,7 +90,7 @@ class RoundedPanel extends JPanel {
 
         g2d.setColor(Color.BLACK); // Border color
         g2d.setStroke(new BasicStroke((float)0.2)); // Border thickness
-        g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);       
+        g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
 
         g2d.dispose();
     }

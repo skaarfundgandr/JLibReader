@@ -1,6 +1,5 @@
 public class testing {
-
     public static void main(String[] args) {
-        SettingsPage.start();
+        System.out.println(new Configuration().getBooksdir());
     }
 }

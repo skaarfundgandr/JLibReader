@@ -44,7 +44,7 @@ public class Configuration {
             String currentLine;
             while ((currentLine = bf.readLine()) != null) {
                 if (currentLine.contains("Books: ")) {
-                    return currentLine.substring(currentLine.indexOf("Books: ")).trim();
+                    return currentLine.substring(currentLine.indexOf("Books:") + 6).trim();
                 }
             }
         } catch (Exception e) {
