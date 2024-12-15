@@ -5,7 +5,11 @@
  * Note 2: No component yet for displaying books. Send code back with epub/pdf data grabber methods
  * in order to properly display books.
  */
+import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import io.documentnode.epub4j.domain.Book;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -93,22 +97,26 @@ public class SelectionMenu {
         int coverX = 110;
         int coverY = 60;
         if (hb != null) {
-            ArrayList<Image> bookCovers = hb.getCoverImages();
-            for (Image cover : bookCovers) {
-
-                Image scaledCoverPage = cover.getScaledInstance(180, 280, Image.SCALE_DEFAULT);
-                ImageIcon coverIcon = new ImageIcon(scaledCoverPage);
-                JButton sampleCover = new JButton(coverIcon);
-                sampleCover.setBounds(coverX, coverY, 180, 280);
-                
-                if ((coverX + 295) >= screenWidth) {
-                    coverY += 325;
-                    coverX = 110;
-                } else {
-                    coverX += 295;
+            ArrayList<Book> bookList = hb.getBooks();
+            try {
+                for (Book book : bookList) {
+                    Image coverImage = ImageIO.read(book.getCoverImage().getInputStream());
+                    Image scaledCoverPage = coverImage.getScaledInstance(180, 280, Image.SCALE_DEFAULT);
+                    ImageIcon coverIcon = new ImageIcon(scaledCoverPage);
+                    JButton sampleCover = new JButton(coverIcon);
+                    sampleCover.setBounds(coverX, coverY, 180, 280);
+                    
+                    if ((coverX + 295) >= screenWidth) {
+                        coverY += 325;
+                        coverX = 110;
+                    } else {
+                        coverX += 295;
+                    }
+                    mainPanel.add(sampleCover);
+                    mainPanel.setComponentZOrder(sampleCover, 2);
                 }
-                mainPanel.add(sampleCover);
-                mainPanel.setComponentZOrder(sampleCover, 2);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
