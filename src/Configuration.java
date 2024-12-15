@@ -17,7 +17,9 @@ public class Configuration {
         }
     }
 
-    public void setBookDir(String path) {
+    public void setBookDir(String dir) {
+        String path = dir.replaceAll("\\", "\\\\");
+
         try (BufferedReader bf = new BufferedReader(new FileReader(configFile))) {
             FileWriter fw = new FileWriter(configFile);
             String current;
