@@ -5,10 +5,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.Border;
 
-public class CustomComponents {
-    // Absolute retardation
-}
-
 class RoundedPasswordField extends JPasswordField {
     private int cornerRadius;
 
