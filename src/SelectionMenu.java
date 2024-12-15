@@ -8,6 +8,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class SelectionMenu {
     public static void start() {
@@ -36,7 +37,7 @@ public class SelectionMenu {
         menuPanel.setBounds(-350, 0, 350, screenHeight);
         menuPanel.setLayout(null);
 
-        /* Menu panel components */
+        /* Menu panel components */ 
         // App name label
         JLabel menuLabel = new JLabel("JLibReader");
         menuLabel.setBounds(115, 35, 216, 40);
@@ -78,6 +79,20 @@ public class SelectionMenu {
             }
         });
         menuPanel.add(settingsButton);
+
+        // Book sample
+        HandleBook hb = new HandleBook();
+        ArrayList<Image> bookCovers = hb.getCoverImages();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        for (Image cover : bookCovers) {
+            Image scaledCoverPage = cover.getScaledInstance(210, 320, Image.SCALE_DEFAULT);
+            ImageIcon coverIcon = new ImageIcon(scaledCoverPage);
+            JButton sampleCover = new JButton(coverIcon);
+            mainPanel.add(sampleCover, gbc);
+        }
 
         // Add components in a specific order
         mainFrame.add(mainPanel);
@@ -122,12 +137,11 @@ public class SelectionMenu {
                 if (isMenuVisible) {
                     slideOut.start();
                 } else {
-                    slideIn.start();
+                    slideIn.start(); 
                 }
                 isMenuVisible = !isMenuVisible;
             }
         });
-
         mainFrame.setVisible(true);
     }
 }
