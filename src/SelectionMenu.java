@@ -36,7 +36,7 @@ public class SelectionMenu {
         menuPanel.setBounds(-350, 0, 350, screenHeight);
         menuPanel.setLayout(null);
 
-        /* Menu panel components */ 
+        /* Menu panel components */
         // App name label
         JLabel menuLabel = new JLabel("JLibReader");
         menuLabel.setBounds(115, 35, 216, 40);
@@ -122,7 +122,7 @@ public class SelectionMenu {
                 if (isMenuVisible) {
                     slideOut.start();
                 } else {
-                    slideIn.start(); 
+                    slideIn.start();
                 }
                 isMenuVisible = !isMenuVisible;
             }
