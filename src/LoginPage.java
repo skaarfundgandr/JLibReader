@@ -1,5 +1,3 @@
-
-
 import java.io.File;
 import java.io.IOException;
 
@@ -46,7 +44,7 @@ public class LoginPage {
     private JFrame loginFrame;
 
     /* Change if needed or add filepath tracking method for portability */ 
-    private BufferedImage image = ImageIO.read(new File("resources/img/login-bg.jpg")); 
+    private BufferedImage image = ImageIO.read(new File("C:\\Users\\ivyda\\Documents\\Codes\\JLibReaderSwing\\src\\main\\resources\\img\\login-bg.jpg")); 
 
     LoginPage() throws IOException {
         // Create login frame 
@@ -62,7 +60,7 @@ public class LoginPage {
         titleLabel.setSize(200, 75);
         titleLabel.setLocation(200, 76);
         titleLabel.setForeground(new Color(255, 255, 255, 255));
-        titleLabel.setFont(Fonts.getTitleFont());
+        titleLabel.setFont(Fonts.getFont(36));
 
         // Create login panel
         RoundedPanel loginPanel = new RoundedPanel(30);
@@ -77,21 +75,21 @@ public class LoginPage {
         enterPass.setSize(193, 39);
         enterPass.setLocation(78, 12);
         enterPass.setForeground(new Color(255, 255, 255, 255));
-        enterPass.setFont(Fonts.getRegFont());
+        enterPass.setFont(Fonts.getFont(20));
 
         // PasswordField
         RoundedPasswordField passField = new RoundedPasswordField(30);
         passField.setBounds(30, 60, 290, 52);
         passField.setBackground(new Color(68, 68, 68, 255));
         passField.setForeground(Color.WHITE);
-        passField.setFont(Fonts.getRegFont());
+        passField.setFont(Fonts.getFont(20));
         passField.setEchoChar('*');
 
         // Login Button
         RoundedButton loginButton = new RoundedButton(30);
         loginButton.setBounds(30, 140, 290, 52);
         loginButton.setText("Log in");
-        loginButton.setFont(Fonts.getRegFont());
+        loginButton.setFont(Fonts.getFont(20));
         loginButton.setBackground(new Color(47, 47, 47, 255));
         loginButton.setForeground(new Color(74, 198, 148, 255));
         loginButton.addMouseListener(new MouseAdapter() {
@@ -112,6 +110,12 @@ public class LoginPage {
                 loginButton.setBackground(fg);
                 loginButton.setForeground(bg);
             }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Launches another page
+                loginFrame.setVisible(false);
+                SelectionMenu.start();
+            }
         });
 
         // Add panel components
@@ -127,14 +131,10 @@ public class LoginPage {
     } // LoginPage
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new LoginPage();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        try {
+            new LoginPage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

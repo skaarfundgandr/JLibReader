@@ -5,6 +5,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.Border;
 
+public class CustomComponents {
+    // Absolute retardation
+}
+
 class RoundedPasswordField extends JPasswordField {
     private int cornerRadius;
 
@@ -18,14 +22,12 @@ class RoundedPasswordField extends JPasswordField {
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
 
-        // Enable anti-aliasing for smooth edges
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Draw the rounded background
         g2d.setColor(getBackground());
         g2d.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
 
-        // Let the superclass handle the text and cursor
         super.paintComponent(g2d);
         g2d.dispose();
     }
@@ -71,7 +73,7 @@ class RoundedPanel extends JPanel {
 
     public RoundedPanel(int cornerRadius) {
         this.cornerRadius = cornerRadius;
-        setOpaque(false); // Make the panel non-opaque to draw custom background
+        setOpaque(false);
     }
 
     @Override
@@ -90,7 +92,7 @@ class RoundedPanel extends JPanel {
 
         g2d.setColor(Color.BLACK); // Border color
         g2d.setStroke(new BasicStroke((float)0.2)); // Border thickness
-        g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
+        g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);       
 
         g2d.dispose();
     }
