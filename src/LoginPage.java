@@ -42,6 +42,7 @@ class BackgroundImage extends JComponent {
  */
 public class LoginPage {
     private JFrame loginFrame;
+    RoundedPasswordField passField;
 
     /* Change if needed or add filepath tracking method for portability */ 
     private BufferedImage image = ImageIO.read(new File("resources/img/login-bg.jpg")); 
@@ -79,7 +80,7 @@ public class LoginPage {
         enterPass.setFont(Fonts.getFont(20));
 
         // PasswordField
-        RoundedPasswordField passField = new RoundedPasswordField(30);
+        passField = new RoundedPasswordField(30);
         passField.setBounds(30, 60, 290, 52);
         passField.setBackground(new Color(68, 68, 68, 255));
         passField.setForeground(Color.WHITE);
@@ -114,8 +115,19 @@ public class LoginPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Launches another page
-                loginFrame.setVisible(false);
-                SelectionMenu.start();
+                if (authenticate()) {
+                    if (new Configuration().isEmpty()) {
+                        JOptionPane.showMessageDialog(loginFrame, "Select book directory");
+                        SettingsPage.start();
+                        SelectionMenu.start();
+                    } else {
+                        SelectionMenu.start();
+                    }
+                    loginFrame.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(loginFrame, "Invalid password");
+                    passField.setText("");
+                }
             }
         });
 
@@ -130,6 +142,14 @@ public class LoginPage {
         
         loginFrame.setVisible(true);
     } // LoginPage
+
+    private boolean authenticate() {
+        Authentication auth = Authentication.getInstance();
+
+        String enteredPassword = passField.getText().trim();
+
+        return auth.authenticate(enteredPassword);
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

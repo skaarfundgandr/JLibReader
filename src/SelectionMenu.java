@@ -82,6 +82,8 @@ public class SelectionMenu {
             @Override
             public void mouseClicked(MouseEvent e) {
                 SettingsPage.start();
+                mainFrame.setVisible(false);
+                mainFrame.dispose();
             }
         });
         menuPanel.add(settingsButton);

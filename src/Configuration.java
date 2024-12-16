@@ -46,6 +46,7 @@ public class Configuration {
             String currentLine;
             while ((currentLine = bf.readLine()) != null) {
                 if (currentLine.contains("Books: ")) {
+                    currentLine = currentLine.replace("\\\\", "\\");
                     return currentLine.substring(currentLine.indexOf("Books:") + 6).trim();
                 }
             }
@@ -53,5 +54,14 @@ public class Configuration {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean isEmpty() {
+        try (BufferedReader bf = new BufferedReader(new FileReader(configFile))) {
+            return bf.readLine() == null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }

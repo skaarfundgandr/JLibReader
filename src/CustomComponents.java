@@ -1,9 +1,39 @@
 import java.awt.*;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.Border;
+
+class BackgroundImage extends JComponent {
+    private Image image;
+
+    public BackgroundImage(Image image) {
+        this.image = image;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (image != null) {
+            Graphics2D g2d = (Graphics2D) g.create();
+
+            // Set the opacity (alpha value: 0.0f to 1.0f)
+            float opacity = 0.98f;
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+
+            // Draw the background image
+            g2d.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+
+            // Add black color to image for darkening
+            g2d.setColor(new Color(0, 0, 0, 75)); // RGBA, alpha 75 for transparency
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+
+            g2d.dispose();
+        }
+    }
+}
 
 class RoundedPasswordField extends JPasswordField {
     private int cornerRadius;

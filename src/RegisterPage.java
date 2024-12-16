@@ -6,42 +6,15 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-
-class BackgroundImage extends JComponent {
-    private Image image;
-
-    public BackgroundImage(Image image) {
-        this.image = image;
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (image != null) {
-            Graphics2D g2d = (Graphics2D) g.create();
-
-            // Set the opacity (alpha value: 0.0f to 1.0f)
-            float opacity = 0.98f;
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-
-            // Draw the background image
-            g2d.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-
-            // Add black color to image for darkening
-            g2d.setColor(new Color(0, 0, 0, 75)); // RGBA, alpha 75 for transparency
-            g2d.fillRect(0, 0, getWidth(), getHeight());
-
-            g2d.dispose();
-        }
-    }
-}   
+import java.awt.image.BufferedImage;   
 
 /* Note: The dimensions and positions used are referenced from the Figma design.
  * URL: https://www.figma.com/design/dVPP1iCdiqVwgDXwQPsxsL/JLibReader
  */
 public class RegisterPage {
     private JFrame registerFrame;
+    private RoundedPasswordField passField;
+    private RoundedPasswordField confirmPassField;
 
     /* Change if needed or add filepath tracking method for portability */ 
     private BufferedImage image = ImageIO.read(new File("resources/img/login-bg.jpg")); 
@@ -78,7 +51,7 @@ public class RegisterPage {
         enterPass.setFont(Fonts.getFont(20));
 
         // PasswordField
-        RoundedPasswordField passField = new RoundedPasswordField(30);
+        passField = new RoundedPasswordField(30);
         passField.setBounds(30, 60, 290, 52);
         passField.setBackground(new Color(68, 68, 68, 255));
         passField.setForeground(Color.WHITE);
@@ -92,7 +65,7 @@ public class RegisterPage {
         confirmPass.setFont(Fonts.getFont(20));
 
         // PasswordField
-        RoundedPasswordField confirmPassField = new RoundedPasswordField(30);
+        confirmPassField = new RoundedPasswordField(30);
         confirmPassField.setBounds(30, 175, 290, 52);
         confirmPassField.setBackground(new Color(68, 68, 68, 255));
         confirmPassField.setForeground(Color.WHITE);
@@ -127,8 +100,14 @@ public class RegisterPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Launches another page
-                registerFrame.setVisible(false);
-                SelectionMenu.start();
+                if (registerButtonClicked()) {
+                    registerFrame.setVisible(false);
+                    try {
+                        new LoginPage();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
         });
 
@@ -142,9 +121,30 @@ public class RegisterPage {
         // register frame execution 
         registerFrame.add(titleLabel); // add title label to frame
         registerFrame.add(registerPanel); // add register panel to frame
-        
+
         registerFrame.setVisible(true);
     } // registerPage
+
+    private boolean registerButtonClicked() {
+        Authentication auth = Authentication.getInstance();
+        String password, confirmedPassword;
+
+        password = passField.getText().trim();
+        confirmedPassword = passField.getText().trim();
+
+        if (password.isEmpty() || confirmedPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(registerFrame, "Password must not be empty");
+            passField.setText("");
+            confirmPassField.setText("");
+        } else if (password.equals(confirmedPassword)) {
+            auth.setPassword(new String(passField.getPassword()).trim());
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(registerFrame, "Passwords do not match!");
+        }
+
+        return false;
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

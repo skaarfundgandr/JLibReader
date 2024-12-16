@@ -114,6 +114,8 @@ public class SettingsPage {
                     currentDirectory = selectedDir;
                     conf.setBookDir(selectedDir);
                     JOptionPane.showMessageDialog(frame, "Directory saved: " + selectedDir);
+                    frame.dispose();
+                    SelectionMenu.start();
                 } else {
                     JOptionPane.showMessageDialog(frame, "Invalid directory selected!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -147,7 +149,10 @@ public class SettingsPage {
                 cancelButton.setForeground(bg);
             }
         });
-        cancelButton.addActionListener(e -> frame.dispose());
+        cancelButton.addActionListener(e -> {
+            frame.dispose();
+            SelectionMenu.start();
+            });
 
         frame.setVisible(true);
     }
