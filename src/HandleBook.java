@@ -69,7 +69,6 @@ public class HandleBook {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return titlesAndCovers;
     }
 

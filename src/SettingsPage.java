@@ -4,8 +4,8 @@
  * Note 2: Will send setup page within tomorrow.
  */
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.awt.*;
 import java.io.File;
 
 public class SettingsPage {
@@ -13,13 +13,22 @@ public class SettingsPage {
 
     public static void start() {
         Configuration conf = new Configuration();
+        String booksDirectory = conf.getBooksdir();
+        if (booksDirectory != null) {
+            currentDirectory = booksDirectory;
+        }
         // Main frame
         JFrame frame = new JFrame("Settings - Change Directory");
-        frame.setSize(600, 200);
+        frame.setSize(530, 150);
         frame.setLayout(null);
+        frame.setUndecorated(true);
+        frame.setLocationRelativeTo(null);
+        frame.setBackground(new Color(68, 68, 68, 255));
+        
 
         // Directory Label
         JLabel directoryLabel = new JLabel("Current Directory:");
+        directoryLabel.setFont(Fonts.getFont(12));
         directoryLabel.setBounds(20, 30, 120, 30);
         frame.add(directoryLabel);
 
@@ -31,9 +40,31 @@ public class SettingsPage {
         frame.add(directoryField);
 
         // Browse Button
-        JButton browseButton = new JButton("Change");
+        RoundedButton browseButton = new RoundedButton(30);
+        browseButton.setText("Browse");
+        browseButton.setFont(Fonts.getFont(12));
         browseButton.setBounds(410, 30, 90, 30);
-        frame.add(browseButton);
+        browseButton.setBackground(new Color(47, 47, 47, 255));
+        browseButton.setForeground(new Color(74, 198, 148, 255));
+        browseButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // Swap colors when mouse enters
+                Color bg = browseButton.getBackground();
+                Color fg = browseButton.getForeground();
+                browseButton.setBackground(fg);
+                browseButton.setForeground(bg);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Swap colors back when mouse exits
+                Color bg = browseButton.getBackground();
+                Color fg = browseButton.getForeground();
+                browseButton.setBackground(fg);
+                browseButton.setForeground(bg);
+            }
+        });
         browseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,11 +77,35 @@ public class SettingsPage {
                 }
             }
         });
+        frame.add(browseButton);
 
         // Save Button
-        JButton saveButton = new JButton("Save");
+        RoundedButton saveButton = new RoundedButton(30);
+        saveButton.setText("Save");
+        saveButton.setFont(Fonts.getFont(12));
         saveButton.setBounds(150, 100, 80, 30);
         frame.add(saveButton);
+        saveButton.setBackground(new Color(47, 47, 47, 255));
+        saveButton.setForeground(new Color(74, 198, 148, 255));
+        saveButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // Swap colors when mouse enters
+                Color bg = saveButton.getBackground();
+                Color fg = saveButton.getForeground();
+                saveButton.setBackground(fg);
+                saveButton.setForeground(bg);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Swap colors back when mouse exits
+                Color bg = saveButton.getBackground();
+                Color fg = saveButton.getForeground();
+                saveButton.setBackground(fg);
+                saveButton.setForeground(bg);
+            }
+        });
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,9 +121,32 @@ public class SettingsPage {
         });
 
         // Cancel Button
-        JButton cancelButton = new JButton("Cancel");
-        cancelButton.setBounds(250, 100, 80, 30);
+        RoundedButton cancelButton = new RoundedButton(30);
+        cancelButton.setText("Cancel");
+        cancelButton.setFont(Fonts.getFont(12));
+        cancelButton.setBounds(280, 100, 80, 30);
         frame.add(cancelButton);
+        cancelButton.setBackground(new Color(47, 47, 47, 255));
+        cancelButton.setForeground(new Color(74, 198, 148, 255));
+        cancelButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // Swap colors when mouse enters
+                Color bg = cancelButton.getBackground();
+                Color fg = cancelButton.getForeground();
+                cancelButton.setBackground(fg);
+                cancelButton.setForeground(bg);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Swap colors back when mouse exits
+                Color bg = cancelButton.getBackground();
+                Color fg = cancelButton.getForeground();
+                cancelButton.setBackground(fg);
+                cancelButton.setForeground(bg);
+            }
+        });
         cancelButton.addActionListener(e -> frame.dispose());
 
         frame.setVisible(true);

@@ -51,6 +51,7 @@ public class LoginPage {
         loginFrame = new JFrame("JLibReader");
         loginFrame.setSize(600, 482); // added 32px to height to compensate for title bar
         loginFrame.setResizable(false);
+        loginFrame.setUndecorated(true);
         loginFrame.setContentPane(new BackgroundImage(image)); // set up background image
         loginFrame.setLocationRelativeTo(null);
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

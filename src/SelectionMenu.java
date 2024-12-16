@@ -7,12 +7,14 @@
  */
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.Timer;
+import javax.swing.border.EmptyBorder;
 
 import io.documentnode.epub4j.domain.Book;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class SelectionMenu {
     public static void start() {
@@ -96,8 +98,10 @@ public class SelectionMenu {
         HandleBook hb = new HandleBook();
         int coverX = 110;
         int coverY = 60;
+        int titleX = coverX;
+        int titleY = coverY + 300;
         if (hb != null) {
-            ArrayList<Book> bookList = hb.getBooks();
+            ArrayList<Book> bookList = hb.getBooks(); 
             try {
                 for (Book book : bookList) {
                     Image coverImage = ImageIO.read(book.getCoverImage().getInputStream());
@@ -106,15 +110,28 @@ public class SelectionMenu {
                     JButton sampleCover = new JButton(coverIcon);
                     sampleCover.addActionListener(new BookListener(book));
                     sampleCover.setBounds(coverX, coverY, 180, 280);
-                    
+
+                    JLabel sampleTitle = new JLabel();
+                    sampleTitle.setText(book.getTitle());
+                    sampleTitle.setFont(Fonts.getFont(12));
+                    sampleTitle.setForeground(Color.WHITE);
+                    sampleTitle.setBounds(titleX, titleY, 180, 30);
+                    sampleTitle.setBorder(new EmptyBorder(10, 10, 10, 10));
+                    sampleTitle.setHorizontalAlignment(SwingConstants.CENTER); // Center horizontally
+                    sampleTitle.setVerticalAlignment(SwingConstants.CENTER);  
                     if ((coverX + 295) >= screenWidth) {
-                        coverY += 325;
+                        coverY += 365;
                         coverX = 110;
+                        titleX = coverX;
+                        titleY += 365;
                     } else {
                         coverX += 295;
+                        titleX = coverX;
                     }
                     mainPanel.add(sampleCover);
+                    mainPanel.add(sampleTitle, BorderLayout.CENTER);
                     mainPanel.setComponentZOrder(sampleCover, 2);
+                    mainPanel.setComponentZOrder(sampleTitle, 2);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
