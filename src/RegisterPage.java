@@ -130,7 +130,7 @@ public class RegisterPage {
         String password, confirmedPassword;
 
         password = passField.getText().trim();
-        confirmedPassword = passField.getText().trim();
+        confirmedPassword = confirmPassField.getText().trim();
 
         if (password.isEmpty() || confirmedPassword.isEmpty()) {
             JOptionPane.showMessageDialog(registerFrame, "Password must not be empty");
